@@ -2,6 +2,7 @@ import 'package:farmmitra/provider/auth_provider.dart';
 import 'package:farmmitra/screens/authenticate/signin.dart';
 import 'package:farmmitra/screens/farmer/category.dart';
 import 'package:farmmitra/screens/wrapper.dart';
+import 'package:farmmitra/services/Maps.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -13,6 +14,13 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+
+  @override
+  void initState() {
+    Provider.of<GenerateMaps>(context,listen: false).getCurrentLocation();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(child: Scaffold(
@@ -20,6 +28,16 @@ class _HomeScreenState extends State<HomeScreen> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
+            Container(
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Icon(Icons.location_on_sharp),
+                  Text(finalAddress),
+                ],
+              ),
+            ),
+            SizedBox(height: 30,),
             Circle(0xffd05219, 'Nearest Warehouse', "assets/image/warehouse.png", 77, 79, 'warehouse'),
             SizedBox(height: 15,),
             Circle(0xff24861c, 'Update Crop Price', "assets/image/uprice.png", 96, 81, 'price'),

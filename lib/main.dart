@@ -1,6 +1,7 @@
 import 'package:farmmitra/provider/auth_provider.dart';
 import 'package:farmmitra/screens/authenticate/signin.dart';
 import 'package:farmmitra/screens/wrapper.dart';
+import 'package:farmmitra/services/Maps.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -19,6 +20,7 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (_) => AuthProvider()),
+        ChangeNotifierProvider(create: (_) => GenerateMaps()),
       ],
       child: const MaterialApp(
         debugShowCheckedModeBanner: false,
