@@ -22,7 +22,7 @@ class _ProfileTraderState extends State<ProfileTrader> {
           IconButton(
               onPressed: () {
                 ap.userSignOut().then(
-                      (value) => Navigator.push(
+                      (value) => Navigator.pushReplacement(
                     context,
                     MaterialPageRoute(
                       builder: (context) => const Wrapper(),

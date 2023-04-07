@@ -63,23 +63,23 @@ class _WrapperState extends State<Wrapper> {
     // );
     return Scaffold(
       body: FutureBuilder(
-        future: getData(),
+          future: getData(),
           builder: (context, snapshot){
-          if(snapshot.connectionState == ConnectionState.waiting){
-            return Center(child: CircularProgressIndicator(),);
-          } else {
-            if(ap.isSignedIn == true){
-              if(userdata == 'Farmer'){
-                return BottomNavBar();
-              } else if(userdata == 'Trader'){
-                return BottomNavBarT();
+            if(snapshot.connectionState == ConnectionState.waiting){
+              return Center(child: CircularProgressIndicator(),);
+            } else {
+              if(ap.isSignedIn == true){
+                if(userdata == 'Farmer'){
+                  return BottomNavBar();
+                } else if(userdata == 'Trader'){
+                  return BottomNavBarT();
+                } else {
+                  return SignIn();
+                }
               } else {
                 return SignIn();
               }
-            } else {
-              return SignIn();
             }
-          }
           }
       ),
     );

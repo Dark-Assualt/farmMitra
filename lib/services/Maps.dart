@@ -8,7 +8,11 @@ class GenerateMaps extends ChangeNotifier{
    Position? position;
 
   Future getCurrentLocation() async{
-    LocationPermission permission = await Geolocator.checkPermission();
+    bool serviceEnabled;
+    LocationPermission permission;
+    serviceEnabled = await Geolocator.isLocationServiceEnabled();
+    permission = await Geolocator.requestPermission();
+    permission = await Geolocator.checkPermission();
     if(permission == LocationPermission.denied || permission ==
     LocationPermission.deniedForever) {
       print("permission not given");
@@ -22,8 +26,9 @@ class GenerateMaps extends ChangeNotifier{
       String mainAddress = address.first.addressLine;
       print(mainAddress);
       finalAddress = mainAddress;
-      notifyListeners();
+
     }
+    notifyListeners();
   }
 
 }

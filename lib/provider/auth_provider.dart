@@ -173,6 +173,11 @@ class AuthProvider extends ChangeNotifier {
     });
   }
 
+  //get current user
+  Future getCurrentUser() async{
+    return await _firebaseAuth.currentUser!;
+  }
+
 
   // storing data locally
   Future saveUserDataToSP() async {

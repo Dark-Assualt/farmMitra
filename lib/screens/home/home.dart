@@ -33,7 +33,15 @@ class _HomeScreenState extends State<HomeScreen> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Icon(Icons.location_on_sharp),
-                  Text(finalAddress),
+                  Container(
+                    constraints: BoxConstraints(
+                      maxWidth: MediaQuery.of(context).size.width*0.7,
+                    ),
+                      child: Text(finalAddress,
+                      style: TextStyle(
+                        fontSize: 10
+                      ),
+                      )),
                 ],
               ),
             ),
