@@ -87,7 +87,7 @@ class _WrapperState extends State<Wrapper> {
 
   Future<String> getData() async{
     final ap = Provider.of<AuthProvider>(context, listen: false);
-    await Future.delayed(Duration(seconds: 3));
+    await Future.delayed(Duration(seconds: 1));
     ap.getDataFromSP().whenComplete(() => userdata =ap.userModel.userType);
     return userdata;
   }

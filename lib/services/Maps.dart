@@ -1,11 +1,15 @@
 import 'package:flutter/cupertino.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:geocoder/geocoder.dart' as geoCo;
-
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 String finalAddress = "Searching address..";
 class GenerateMaps extends ChangeNotifier{
    Position? position;
+   Position? get getPosition => position;
+
+   // String get getFinalAddress => finalAddress;
+   // GoogleMapController googleMapController;
 
   Future getCurrentLocation() async{
     bool serviceEnabled;
@@ -30,5 +34,6 @@ class GenerateMaps extends ChangeNotifier{
     }
     notifyListeners();
   }
+
 
 }
