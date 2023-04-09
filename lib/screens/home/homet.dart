@@ -44,31 +44,31 @@ class _HomeScreenTState extends State<HomeScreenT> {
                     Navigator.push(context,
                         MaterialPageRoute(builder: (context)=> AddWarehouseScreen()));
                   },
-                  child: warehouse()
-                  // Container(
-                  //   decoration: BoxDecoration(
-                  //     color: Colors.white,
-                  //     borderRadius: BorderRadius.circular(10),
-                  //     boxShadow: [BoxShadow(blurRadius: 15)],
-                  //     border: Border.all(width: 3, color: Colors.black),
-                  //   ),
-                  //   child: Padding(
-                  //     padding: const EdgeInsets.all(8.0),
-                  //     child: Row(
-                  //       mainAxisAlignment: MainAxisAlignment.center,
-                  //       children: [
-                  //         Icon(Icons.my_location_rounded),
-                  //         Column(
-                  //           children: [
-                  //             Text("Add your warehouse"),
-                  //             SizedBox(height: 5,),
-                  //             Text("Add you warehouse location"),
-                  //           ],
-                  //         )
-                  //       ],
-                  //     ),
-                  //   ),
-                  // ),
+                  child:
+                  Container(
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(10),
+                      boxShadow: [BoxShadow(blurRadius: 15)],
+                      border: Border.all(width: 3, color: Colors.black),
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Icon(Icons.my_location_rounded),
+                          Column(
+                            children: [
+                              Text("Add your warehouse"),
+                              SizedBox(height: 5,),
+                              Text("Add you warehouse location"),
+                            ],
+                          )
+                        ],
+                      ),
+                    ),
+                  ),
                 ),
 
               ],
@@ -116,93 +116,93 @@ class _HomeScreenTState extends State<HomeScreenT> {
       ),
     );
   }
-  Widget warehouse () {
-   return StreamBuilder<QuerySnapshot>(
-     stream: FirebaseFirestore.instance
-         .collection('warehouses')
-         .where('traderId', isEqualTo: uid)
-         .snapshots(),
-     builder: (context, snapshot) {
-       if (snapshot.hasError){
-         return Container(
-           decoration: BoxDecoration(
-             color: Colors.white,
-             borderRadius: BorderRadius.circular(10),
-             boxShadow: [BoxShadow(blurRadius: 15)],
-             border: Border.all(width: 3, color: Colors.black),
-           ),
-           child:Text('Error: ${snapshot.error}'),
-         );
-       }
-       if (!snapshot.hasData) {
-         return  Container(
-           decoration: BoxDecoration(
-             color: Colors.white,
-             borderRadius: BorderRadius.circular(10),
-             boxShadow: [BoxShadow(blurRadius: 15)],
-             border: Border.all(width: 3, color: Colors.black),
-           ),
-           child: CircularProgressIndicator(),
-         );
-       }
-       final List<DocumentSnapshot> warehouses = snapshot.data!.docs;
-       if (warehouses.isEmpty) {
-         return Container(
-           decoration: BoxDecoration(
-             color: Colors.white,
-             borderRadius: BorderRadius.circular(10),
-             boxShadow: [BoxShadow(blurRadius: 15)],
-             border: Border.all(width: 3, color: Colors.black),
-           ),
-           child: Padding(
-             padding: const EdgeInsets.all(8.0),
-             child: Row(
-               mainAxisAlignment: MainAxisAlignment.center,
-               children: [
-                 Icon(Icons.my_location_rounded),
-                 Column(
-                   children: [
-                     Text("Add your warehouse"),
-                     SizedBox(height: 5,),
-                     Text("Add you warehouse location"),
-                   ],
-                 )
-               ],
-             ),
-           ),
-         );
-       }
-       else {
-         return ListView.builder(
-           itemCount: warehouses.length,
-           itemBuilder: (context, index) {
-             final Map<String, dynamic> warehouseData = warehouses[index].data();
-             final String name = warehouseData['name'];
-             final double latitude = warehouseData['latitude'];
-             final double longitude = warehouseData['longitude'];
-             final String address = 'Latitude: $latitude, Longitude: $longitude';
-             return ListTile(
-               title: Text(name),
-               subtitle: Text(address),
-             );
-           },
-         );
-         //   ListView.builder(
-         //   itemCount: warehouses.length,
-         //   itemBuilder: (context, index) {
-         //     final Map<String, dynamic> doc = warehouses[index].data as Map<String, dynamic>;
-         //     final String name = doc['name'];
-         //     final double latitude = doc['latitude'];
-         //     final double longitude = doc['longitude'];
-         //     final String address = 'Latitude: $latitude, Longitude: $longitude';
-         //     return ListTile(
-         //       title: Text(name),
-         //       subtitle: Text(address),
-         //     );
-         //   },
-         // );
-       }
-     },
-   );
-  }
+  // Widget warehouse () {
+  //  return StreamBuilder<QuerySnapshot>(
+  //    stream: FirebaseFirestore.instance
+  //        .collection('warehouses')
+  //        .where('traderId', isEqualTo: uid)
+  //        .snapshots(),
+  //    builder: (context, snapshot) {
+  //      if (snapshot.hasError){
+  //        return Container(
+  //          decoration: BoxDecoration(
+  //            color: Colors.white,
+  //            borderRadius: BorderRadius.circular(10),
+  //            boxShadow: [BoxShadow(blurRadius: 15)],
+  //            border: Border.all(width: 3, color: Colors.black),
+  //          ),
+  //          child:Text('Error: ${snapshot.error}'),
+  //        );
+  //      }
+  //      if (!snapshot.hasData) {
+  //        return  Container(
+  //          decoration: BoxDecoration(
+  //            color: Colors.white,
+  //            borderRadius: BorderRadius.circular(10),
+  //            boxShadow: [BoxShadow(blurRadius: 15)],
+  //            border: Border.all(width: 3, color: Colors.black),
+  //          ),
+  //          child: CircularProgressIndicator(),
+  //        );
+  //      }
+  //      final List<DocumentSnapshot> warehouses = snapshot.data!.docs;
+  //      if (warehouses.isEmpty) {
+  //        return Container(
+  //          decoration: BoxDecoration(
+  //            color: Colors.white,
+  //            borderRadius: BorderRadius.circular(10),
+  //            boxShadow: [BoxShadow(blurRadius: 15)],
+  //            border: Border.all(width: 3, color: Colors.black),
+  //          ),
+  //          child: Padding(
+  //            padding: const EdgeInsets.all(8.0),
+  //            child: Row(
+  //              mainAxisAlignment: MainAxisAlignment.center,
+  //              children: [
+  //                Icon(Icons.my_location_rounded),
+  //                Column(
+  //                  children: [
+  //                    Text("Add your warehouse"),
+  //                    SizedBox(height: 5,),
+  //                    Text("Add you warehouse location"),
+  //                  ],
+  //                )
+  //              ],
+  //            ),
+  //          ),
+  //        );
+  //      }
+  //      else {
+  //        return ListView.builder(
+  //          itemCount: warehouses.length,
+  //          itemBuilder: (context, index) {
+  //            final Map<String, dynamic> warehouseData = warehouses[index].data();
+  //            final String name = warehouseData['name'];
+  //            final double latitude = warehouseData['latitude'];
+  //            final double longitude = warehouseData['longitude'];
+  //            final String address = 'Latitude: $latitude, Longitude: $longitude';
+  //            return ListTile(
+  //              title: Text(name),
+  //              subtitle: Text(address),
+  //            );
+  //          },
+  //        );
+  //        //   ListView.builder(
+  //        //   itemCount: warehouses.length,
+  //        //   itemBuilder: (context, index) {
+  //        //     final Map<String, dynamic> doc = warehouses[index].data as Map<String, dynamic>;
+  //        //     final String name = doc['name'];
+  //        //     final double latitude = doc['latitude'];
+  //        //     final double longitude = doc['longitude'];
+  //        //     final String address = 'Latitude: $latitude, Longitude: $longitude';
+  //        //     return ListTile(
+  //        //       title: Text(name),
+  //        //       subtitle: Text(address),
+  //        //     );
+  //        //   },
+  //        // );
+  //      }
+  //    },
+  //  );
+  // }
 }
