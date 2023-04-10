@@ -1,8 +1,10 @@
+import 'package:farmmitra/bottom_nav_bar.dart';
 import 'package:farmmitra/provider/auth_provider.dart';
 import 'package:farmmitra/screens/authenticate/signin.dart';
 import 'package:farmmitra/screens/farmer/category.dart';
 import 'package:farmmitra/screens/wrapper.dart';
 import 'package:farmmitra/services/Maps.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -24,34 +26,45 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return SafeArea(child: Scaffold(
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Container(
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Icon(Icons.location_on_sharp),
-                  Container(
-                    constraints: BoxConstraints(
-                      maxWidth: MediaQuery.of(context).size.width*0.7,
-                    ),
-                      child: Text(finalAddress,
-                      style: TextStyle(
-                        fontSize: 10
+      body: RefreshIndicator(
+        onRefresh: () async {
+          print("calling refresh");
+          Navigator.pushReplacement(context,
+          CupertinoPageRoute(
+              builder: (context) => BottomNavBar()
+          ));
+        },
+        child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Container(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Icon(Icons.location_on_sharp),
+                    Container(
+                      constraints: BoxConstraints(
+                        maxWidth: MediaQuery.of(context).size.width*0.7,
                       ),
-                      )),
-                ],
+                        child:Text(context.watch<GenerateMaps>().finalAddress ??
+                          "Searching Location...",
+                        style: TextStyle(
+                          fontSize: 10
+                        ),
+                        )
+                    ),
+                  ],
+                ),
               ),
-            ),
-            SizedBox(height: 30,),
-            Circle(0xffd05219, 'Nearest Warehouse', "assets/image/warehouse.png", 77, 79, 'warehouse'),
-            SizedBox(height: 15,),
-            Circle(0xff24861c, 'Update Crop Price', "assets/image/uprice.png", 96, 81, 'price'),
-            SizedBox(height: 15,),
-            Circle(0xff974141, 'Sell Product', "assets/image/Sell.png", 87, 84, 'sell'),
-          ],
+              SizedBox(height: 30,),
+              Circle(0xffd05219, 'Nearest Warehouse', "assets/image/warehouse.png", 77, 79, 'warehouse'),
+              SizedBox(height: 15,),
+              Circle(0xff24861c, 'Update Crop Price', "assets/image/uprice.png", 96, 81, 'price'),
+              SizedBox(height: 15,),
+              Circle(0xff974141, 'Sell Product', "assets/image/Sell.png", 87, 84, 'sell'),
+            ],
+          ),
         ),
       ),
     ));

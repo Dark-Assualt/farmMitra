@@ -5,6 +5,7 @@ import 'package:farmmitra/screens/authenticate/signup.dart';
 import 'package:farmmitra/screens/farmer/chat_farmer.dart';
 import 'package:farmmitra/screens/farmer/profile_farmer.dart';
 import 'package:farmmitra/screens/farmer/request_live.dart';
+import 'package:farmmitra/services/Maps.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:farmmitra/screens/home/home.dart';
 import 'package:farmmitra/screens/home/homet.dart';
@@ -41,6 +42,16 @@ class _BottomNavBarState extends State<BottomNavBar> {
   ];
 
   @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    print("inside init state of Bottom nav bar");
+
+    _selectedIndex = widget.page ?? 0;
+    context.read<GenerateMaps>().getCurrentLocation();
+  }
+
+  @override
   Widget build(BuildContext context) {
 
 
@@ -48,7 +59,6 @@ class _BottomNavBarState extends State<BottomNavBar> {
       child: Scaffold(
         bottomNavigationBar: BottomNavigationBar(
           showSelectedLabels: false,
-          elevation: 0,
           type: BottomNavigationBarType.fixed,
           showUnselectedLabels: false,
           selectedItemColor: const Color(0xff6200ee),

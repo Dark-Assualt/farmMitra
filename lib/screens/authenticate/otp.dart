@@ -1,6 +1,7 @@
 import 'package:farmmitra/provider/auth_provider.dart';
 import 'package:farmmitra/screens/authenticate/user_information_screen.dart';
 import 'package:farmmitra/screens/home/home.dart';
+import 'package:farmmitra/screens/wrapper.dart';
 import 'package:farmmitra/utils/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:pinput/pinput.dart';
@@ -171,7 +172,7 @@ class _OtpState extends State<Otp> {
                                 (value) => Navigator.pushAndRemoveUntil(
                                     context,
                                     MaterialPageRoute(
-                                      builder: (context) => const HomeScreen(),
+                                      builder: (context) => const Wrapper(),
                                     ),
                                     (route) => false),
                               ),

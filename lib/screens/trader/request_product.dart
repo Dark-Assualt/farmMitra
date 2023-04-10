@@ -74,7 +74,7 @@ class _RequestProductState extends State<RequestProduct> {
                       children: [
                         Container(
                           height: MediaQuery.of(context).size.height * 0.06,
-                          width: MediaQuery.of(context).size.width * 0.68,
+                          width: MediaQuery.of(context).size.width * 0.66,
                           child: TextField(
                             controller: quantityController,
                             maxLength: 4,
@@ -120,7 +120,7 @@ class _RequestProductState extends State<RequestProduct> {
                       children: [
                         Container(
                           height: MediaQuery.of(context).size.height * 0.06,
-                          width: MediaQuery.of(context).size.width * 0.68,
+                          width: MediaQuery.of(context).size.width * 0.66,
                           child: TextField(
                             controller: rateController,
                             maxLength: 4,

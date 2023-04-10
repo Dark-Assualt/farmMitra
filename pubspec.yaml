@@ -54,6 +54,9 @@ dependencies:
   geocode: ^1.0.2
   google_maps_flutter: ^2.1.1
   permission_handler: ^10.2.0
+  geodesy: ^0.3.2
+  location: ^4.4.0
+  url_launcher: ^6.1.10
 
 dev_dependencies:
   flutter_test:

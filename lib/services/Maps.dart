@@ -3,8 +3,9 @@ import 'package:geolocator/geolocator.dart';
 import 'package:geocoder/geocoder.dart' as geoCo;
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
-String finalAddress = "Searching address..";
+    LatLng? position;
 class GenerateMaps extends ChangeNotifier{
+  String? finalAddress;
    Position? position;
    Position? get getPosition => position;
 
@@ -23,6 +24,7 @@ class GenerateMaps extends ChangeNotifier{
     }
     else {
       var positionData = await GeolocatorPlatform.instance.getCurrentPosition();
+      position = positionData;
       final cords = geoCo.Coordinates(
           positionData.latitude, positionData.longitude);
       var address = await geoCo.Geocoder.local.findAddressesFromCoordinates(

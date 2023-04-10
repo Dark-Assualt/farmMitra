@@ -2,12 +2,14 @@ class Warehouse {
   String name;
   double latitude;
   double longitude;
+  String address;
   String traderId;
 
   Warehouse({
     required this.name,
     required this.latitude,
     required this.longitude,
+    required this.address,
     required this.traderId,
   });
 
@@ -16,6 +18,7 @@ class Warehouse {
       name: map['name'],
       latitude: map['latitude'],
       longitude: map['longitude'],
+      address: map['address'],
       traderId: map['traderId'],
     );
   }
@@ -25,6 +28,7 @@ class Warehouse {
       'name': name,
       'latitude': latitude,
       'longitude': longitude,
+      'address': address,
       'traderId': traderId,
     };
   }

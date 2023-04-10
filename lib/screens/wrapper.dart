@@ -26,41 +26,6 @@ class _WrapperState extends State<Wrapper> {
   @override
   Widget build(BuildContext context) {
     final ap = Provider.of<AuthProvider>(context, listen: false);
-    // return Scaffold(
-    //   body: Center(
-    //     child: ElevatedButton(
-    //         onPressed: () async {
-    //           if (ap.isSignedIn == true) {
-    //             await ap.getDataFromSP().whenComplete(() {
-    //               String _userType = ap.userModel.userType;
-    //               if (_userType == "Farmer") {                    Navigator.pushReplacement(
-    //
-    //                     context,
-    //                     MaterialPageRoute(
-    //                       builder: (context) => const BottomNavBar(),
-    //                     ));
-    //               }
-    //               else if (_userType == "Trader") {
-    //                 Navigator.pushReplacement(
-    //                     context,
-    //                     MaterialPageRoute(
-    //                       builder: (context) => const BottomNavBarT(),
-    //                     ));
-    //               }
-    //             }
-    //             );
-    //           } else {
-    //             Navigator.pushReplacement(
-    //               context,
-    //               MaterialPageRoute(
-    //                 builder: (context) => const SignIn(),
-    //               ),
-    //             );
-    //           }
-    //         },
-    //         child: Text("Lets get started")),
-    //   ),
-    // );
     return Scaffold(
       body: FutureBuilder(
           future: getData(),

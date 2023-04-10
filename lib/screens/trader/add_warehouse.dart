@@ -20,6 +20,7 @@ class _AddWarehouseScreenState extends State<AddWarehouseScreen> {
   late GoogleMapController _mapController;
   LatLng? _selectedLocation;
   Position? _currentPosition;
+  String? _address;
 
   @override
   void initState() {
@@ -67,6 +68,11 @@ class _AddWarehouseScreenState extends State<AddWarehouseScreen> {
     final placemarks = await placemarkFromCoordinates(
         latLng.latitude, latLng.longitude);
     final place = placemarks.first;
+    setState(() {
+      _address = '${place.name}, ${place.locality}, ${place
+          .administrativeArea}, ${place.country}';
+    });
+
     return '${place.name}, ${place.locality}, ${place
         .administrativeArea}, ${place.country}';
   }
@@ -87,6 +93,7 @@ class _AddWarehouseScreenState extends State<AddWarehouseScreen> {
     final latitude = _selectedLocation!.latitude;
     final longitude = _selectedLocation!.longitude;
     final traderId = await FirebaseAuth.instance.currentUser!.uid;
+    final address = _address;
 
     final QuerySnapshot snapshot = await FirebaseFirestore.instance
         .collection('warehouses')
@@ -103,6 +110,7 @@ class _AddWarehouseScreenState extends State<AddWarehouseScreen> {
         'name': name,
         'latitude': latitude,
         'longitude': longitude,
+        'address': address,
       });
     } else {
       // User doesn't have a warehouse saved yet
@@ -110,6 +118,7 @@ class _AddWarehouseScreenState extends State<AddWarehouseScreen> {
         'name': name,
         'latitude': latitude,
         'longitude': longitude,
+        'address': address,
         'traderId': traderId,
       });
     }
@@ -129,17 +138,20 @@ class _AddWarehouseScreenState extends State<AddWarehouseScreen> {
           ? const Center(child: CircularProgressIndicator())
       : Column(
         children: [
-          TextFormField(
-            controller: _nameController,
-            decoration: const InputDecoration(
-              labelText: 'Warehouse Name',
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 8.0),
+            child: TextFormField(
+              controller: _nameController,
+              decoration: const InputDecoration(
+                labelText: 'Warehouse Name',
+              ),
+              validator: (value) {
+                if (value == null) {
+                  return 'Please enter a name for your warehouse';
+                }
+                return null;
+              },
             ),
-            validator: (value) {
-              if (value == null) {
-                return 'Please enter a name for your warehouse';
-              }
-              return null;
-            },
           ),
           Expanded(
             child: GoogleMap(
@@ -170,15 +182,18 @@ class _AddWarehouseScreenState extends State<AddWarehouseScreen> {
           ),
           if (_selectedLocation != null) ...[
             const SizedBox(height: 16),
-            FutureBuilder<String>(
-              future: _getAddressFromLatLng(_selectedLocation!),
-              builder: (context, snapshot) {
-                if (snapshot.hasData) {
-                  return Text('Selected location: ${snapshot.data}');
-                } else {
-                  return const CircularProgressIndicator();
-                }
-              },
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16),
+              child: FutureBuilder<String>(
+                future: _getAddressFromLatLng(_selectedLocation!),
+                builder: (context, snapshot) {
+                  if (snapshot.hasData) {
+                    return Text(_address!);
+                  } else {
+                    return const CircularProgressIndicator();
+                  }
+                },
+              ),
             ),
           ],
           const SizedBox(height: 16),
