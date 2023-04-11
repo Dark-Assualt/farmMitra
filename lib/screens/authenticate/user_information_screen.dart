@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:farmmitra/model/user_model.dart';
 import 'package:farmmitra/provider/auth_provider.dart';
 import 'package:farmmitra/screens/home/home.dart';
+import 'package:farmmitra/screens/wrapper.dart';
 import 'package:farmmitra/utils/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -339,7 +340,8 @@ class _UserInformationScreenState extends State<UserInformationScreen> {
         createdAt: " ",
         phoneNumber: "",
         profilePic: " ",
-        uid: "");
+        uid: "",
+    );
     if (image != null) {
       ap.saveUserDataToFirebase(
           context: context,
@@ -350,7 +352,7 @@ class _UserInformationScreenState extends State<UserInformationScreen> {
             ap.saveUserDataToSP().then((value) => ap.setSignIn().then((value) =>
                 Navigator.pushAndRemoveUntil(
                     context,
-                    MaterialPageRoute(builder: (context) => const HomeScreen()),
+                    MaterialPageRoute(builder: (context) => const Wrapper()),
                     (route) => false)));
           });
     } else {

@@ -1,16 +1,7 @@
-import 'dart:typed_data';
-
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:farmmitra/screens/authenticate/signup.dart';
 import 'package:farmmitra/screens/trader/profile_trader.dart';
-import 'package:firebase_messaging/firebase_messaging.dart';
-import 'package:farmmitra/screens/home/home.dart';
+import 'package:farmmitra/screens/trader/requestt.dart';
 import 'package:farmmitra/screens/home/homet.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 
 class BottomNavBarT extends StatefulWidget {
@@ -30,7 +21,7 @@ class _BottomNavBarTState extends State<BottomNavBarT> {
 
     HomeScreenT(),
 
-    SignUp(),
+    RequestT(),
 
     ProfileTrader()
 

@@ -94,6 +94,7 @@ class _AddWarehouseScreenState extends State<AddWarehouseScreen> {
     final longitude = _selectedLocation!.longitude;
     final traderId = await FirebaseAuth.instance.currentUser!.uid;
     final address = _address;
+    final rate = '';
 
     final QuerySnapshot snapshot = await FirebaseFirestore.instance
         .collection('warehouses')
@@ -111,6 +112,7 @@ class _AddWarehouseScreenState extends State<AddWarehouseScreen> {
         'latitude': latitude,
         'longitude': longitude,
         'address': address,
+        'rate': rate,
       });
     } else {
       // User doesn't have a warehouse saved yet
@@ -120,6 +122,7 @@ class _AddWarehouseScreenState extends State<AddWarehouseScreen> {
         'longitude': longitude,
         'address': address,
         'traderId': traderId,
+        'rate': rate,
       });
     }
 

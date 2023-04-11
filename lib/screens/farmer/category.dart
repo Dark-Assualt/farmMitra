@@ -1,4 +1,3 @@
-import 'package:farmmitra/screens/authenticate/signup.dart';
 import 'package:farmmitra/screens/farmer/sub_cat.dart';
 import 'package:farmmitra/screens/farmer/vegetables.dart';
 import 'package:flutter/material.dart';

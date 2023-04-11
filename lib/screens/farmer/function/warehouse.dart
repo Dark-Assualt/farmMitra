@@ -13,6 +13,7 @@ class Warehouse {
   final double latitude;
   final double longitude;
   final String traderId;
+  final String rate;
 
   Warehouse({
     required this.name,
@@ -20,10 +21,13 @@ class Warehouse {
     required this.latitude,
     required this.longitude,
     required this.traderId,
+    required this.rate,
   });
 }
 
 class FarmerScreen extends StatefulWidget {
+  const FarmerScreen({super.key});
+
   @override
   _FarmerScreenState createState() => _FarmerScreenState();
 }
@@ -71,6 +75,7 @@ class _FarmerScreenState extends State<FarmerScreen> {
         latitude: doc['latitude'],
         longitude: doc['longitude'],
         traderId: doc['traderId'],
+        rate: doc['rate'],
       );
       // if (_currentLocation != null) {
       //   final currentMarker = Marker(
@@ -161,6 +166,7 @@ class _FarmerScreenState extends State<FarmerScreen> {
                       ? _calculateDistance(
                       _currentLocation!, LatLng(warehouse.latitude, warehouse.longitude))
                       : null;
+                  final rate = warehouse.rate;
                   return ListTile(
                     onTap: () => _openMapsUrl(warehouse),
                     title: Text(warehouse.name),
@@ -170,6 +176,8 @@ class _FarmerScreenState extends State<FarmerScreen> {
                         Text(warehouse.address),
                         if (distance != null)
                           Text('${distance.toStringAsFixed(2)} km away'),
+                        if (rate != null)
+                          Text(rate),
                       ],
                     ),
                   );

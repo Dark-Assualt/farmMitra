@@ -1,5 +1,4 @@
 import 'package:farmmitra/provider/auth_provider.dart';
-import 'package:farmmitra/screens/authenticate/signup.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:country_picker/country_picker.dart';
@@ -199,34 +198,6 @@ class _SignInState extends State<SignIn> {
                   SizedBox(
                     height: 45,
                   ),
-                  Container(
-                    width: double.infinity,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                          'Do not have an account?',
-                          style: TextStyle(
-                              fontSize: 14, fontWeight: FontWeight.w500),
-                        ),
-                        TextButton(
-                            onPressed: () {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => SignUp()));
-                            },
-                            // ignore: prefer_const_constructors
-                            child: Text(
-                              'SIGN UP HERE',
-                              style: TextStyle(
-                                  color: Colors.blue,
-                                  fontSize: 15,
-                                  fontWeight: FontWeight.w600),
-                            ))
-                      ],
-                    ),
-                  )
                 ],
               ),
             ),

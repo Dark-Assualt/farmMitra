@@ -1,24 +1,16 @@
-import 'dart:typed_data';
-
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:farmmitra/screens/authenticate/signup.dart';
-import 'package:farmmitra/screens/farmer/chat_farmer.dart';
 import 'package:farmmitra/screens/farmer/profile_farmer.dart';
 import 'package:farmmitra/screens/farmer/request_live.dart';
+import 'package:farmmitra/screens/trader/functiont.dart';
 import 'package:farmmitra/services/Maps.dart';
-import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:farmmitra/screens/home/home.dart';
-import 'package:farmmitra/screens/home/homet.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 
 class BottomNavBar extends StatefulWidget {
 
-  const BottomNavBar({Key? key, this.page}) : super(key: key);
+
+  const BottomNavBar({Key? key, this.page, }) : super(key: key);
   final int? page;
 
 
@@ -28,14 +20,13 @@ class BottomNavBar extends StatefulWidget {
 
 class _BottomNavBarState extends State<BottomNavBar> {
   int _selectedIndex = 0;
-
   static const List<Widget> _widgetOptions = <Widget>[
 
     HomeScreen(),
 
     RequestLive(),
 
-    ChatFarmer(),
+    FunctionsT(type: 'chat'),
 
     ProfileFarmer(),
 
@@ -53,8 +44,6 @@ class _BottomNavBarState extends State<BottomNavBar> {
 
   @override
   Widget build(BuildContext context) {
-
-
     return SafeArea(
       child: Scaffold(
         bottomNavigationBar: BottomNavigationBar(

@@ -1,8 +1,30 @@
 import 'dart:io';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:farmmitra/screens/wrapper.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 
 import '../../../utils/utils.dart';
+
+class Post {
+  String name;
+  String product;
+  String quantity;
+  String userType;
+  String uid;
+  File image;
+
+  Post({
+    required this.name,
+    required this.product,
+    required this.quantity,
+    required this.userType,
+    required this.uid,
+    required this.image});
+}
 
 class SellProduct extends StatefulWidget {
   final String product;
@@ -13,7 +35,7 @@ class SellProduct extends StatefulWidget {
 }
 
 class _SellProductState extends State<SellProduct> {
-  File? image;
+  File? _image;
   final amounttController = TextEditingController();
   List<String> items = <String>[
     'One',
@@ -27,9 +49,45 @@ class _SellProductState extends State<SellProduct> {
     "Ton",
   ];
 
-  void selectImage() async {
-    image = await pickImage(context);
-    setState(() {});
+  Future<void> _pickImage() async {
+    final pickedImage = await ImagePicker().pickImage(source: ImageSource.gallery);
+    setState(() {
+      _image = File(pickedImage!.path);
+    });
+  }
+
+  Future<void> _savePost() async {
+    if (amounttController.text.isNotEmpty && _image != null) {
+      final Reference ref = FirebaseStorage.instance.ref().child('images/${DateTime.now().toString()}');
+      final UploadTask uploadTask = ref.putFile(_image!);
+      final TaskSnapshot storageTaskSnapshot = await uploadTask.whenComplete(() => null);
+      final String downloadUrl = await storageTaskSnapshot.ref.getDownloadURL();
+
+      final CollectionReference postsCollection = FirebaseFirestore.instance.collection('posts');
+      final postDocument = postsCollection.doc();
+
+      final userDoc = await FirebaseFirestore.instance
+          .collection('users')
+          .doc(FirebaseAuth.instance.currentUser!.uid)
+          .get();
+      final name = userDoc['name'];
+      final userType = userDoc['userType'];
+
+      final data = {
+        'name': name as String,
+        'uid': FirebaseAuth.instance.currentUser!.uid,
+        'product': widget.product,
+        'quantity': amounttController.text + " " +_quantityVal,
+        'userType': userType as String,
+        'imageUrl': downloadUrl,
+      };
+
+      await postDocument.set(data);
+      Navigator.pushReplacement(context, 
+      MaterialPageRoute(builder: (context) => Wrapper()));
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Please enter text and select an image')));
+    }
   }
 
   @override
@@ -114,7 +172,7 @@ class _SellProductState extends State<SellProduct> {
                       children: [
                         Container(
                           height: MediaQuery.of(context).size.height * 0.06,
-                          width: MediaQuery.of(context).size.width * 0.68,
+                          width: MediaQuery.of(context).size.width * 0.62,
                           // decoration: BoxDecoration(
                           //   color: Color(0xffD9D9D9),
                           // ),
@@ -151,8 +209,8 @@ class _SellProductState extends State<SellProduct> {
                 ),
                 SizedBox(height: 20,),
                 InkWell(
-                  onTap: () => selectImage(),
-                  child: image == null
+                  onTap: () => _pickImage(),
+                  child: _image == null
                       ? Container(
                     height: MediaQuery.of(context).size.height*(1/3),
                     width: double.infinity,
@@ -176,7 +234,7 @@ class _SellProductState extends State<SellProduct> {
                       borderRadius: BorderRadius.circular(10),
                       border: Border.all(width: 3, color: Colors.black),
                     ),
-                    child: Image.file(image!),
+                    child: Image.file(_image!),
                   ),
                   ),
                 SizedBox(height: 20,),
@@ -191,8 +249,8 @@ class _SellProductState extends State<SellProduct> {
                         borderRadius: BorderRadius.circular(15),
                       ),
                     ),
-                    onPressed: () {},
-                    child: Text('Update'),
+                    onPressed: () {_savePost();},
+                    child: Text('Save Request'),
                   ),
                 ),
               ],

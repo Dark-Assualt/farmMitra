@@ -1,4 +1,3 @@
-import 'package:farmmitra/screens/authenticate/signup.dart';
 import 'package:farmmitra/screens/farmer/vegetables.dart';
 import 'package:flutter/material.dart';
 
@@ -11,9 +10,6 @@ class SubCategory extends StatelessWidget {
   Widget build(BuildContext context) {
     if(category == 'Vegetables') {
       return Vegetables(type: type, category: category,);
-    }
-    else if(category == 'Fruits') {
-      return SignUp();
     }
     else {
       return Container(
