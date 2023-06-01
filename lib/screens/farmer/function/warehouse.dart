@@ -167,18 +167,20 @@ class _FarmerScreenState extends State<FarmerScreen> {
                       _currentLocation!, LatLng(warehouse.latitude, warehouse.longitude))
                       : null;
                   final rate = warehouse.rate;
-                  return ListTile(
-                    onTap: () => _openMapsUrl(warehouse),
-                    title: Text(warehouse.name),
-                    subtitle: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(warehouse.address),
-                        if (distance != null)
-                          Text('${distance.toStringAsFixed(2)} km away'),
-                        if (rate != null)
-                          Text(rate),
-                      ],
+                  return SingleChildScrollView(
+                    child: ListTile(
+                      onTap: () => _openMapsUrl(warehouse),
+                      title: Text(warehouse.name),
+                      subtitle: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(warehouse.address),
+                          if (distance != null)
+                            Text('${distance.toStringAsFixed(2)} km away'),
+                          if (rate != null)
+                            Text(rate),
+                        ],
+                      ),
                     ),
                   );
                   },

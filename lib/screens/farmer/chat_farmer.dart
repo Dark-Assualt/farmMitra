@@ -322,6 +322,7 @@ class _ChatListScreenState extends State<ChatListScreen> {
                   backgroundImage: NetworkImage(user['profilePic']),
                 ),
                 title: Text(user['name']),
+                subtitle: Text(user['userType']),
                 onTap: () async {
                   var name = user['name'];
                   var chatId = widget.currentUser.uid.compareTo(user.id) < 0
